@@ -1,0 +1,14 @@
+# Dataset — too large to push to GitHub
+Sample - Superstore.csv
+
+# Python cache files — not needed
+__pycache__/
+*.pyc
+*.pyo
+
+# VS Code settings
+.vscode/
+
+# Windows system file
+Thumbs.db
+desktop.ini
