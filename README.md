@@ -3,7 +3,7 @@
 A machine learning web app that predicts whether a retail order
 will result in a **Profit or Loss** — built and deployed live on AWS EC2.
 
-🔗 **Live App:** http://YOUR_EC2_IP:8501 ← (we will fill this after AWS)
+🔗 **Live App:** http://YOUR_EC2_IP:8501
 
 ---
 
