@@ -1,84 +1,109 @@
-# 📦 Retail Profit Predictor
+# Retail Profitability Analysis
 
-A machine learning web app that predicts whether a retail order
-will result in a **Profit or Loss** — built and deployed live on AWS EC2.
+An exploratory data analysis project using the Sample Superstore dataset to understand sales performance, profit margins, discount patterns, and regional profitability.
 
-🔗 **Live App:** http://YOUR_EC2_IP:8501
+The primary deliverable is the Jupyter notebook: **[`retail_profitability_analysis.ipynb`](retail_profitability_analysis.ipynb)**.
 
----
+## Project objective
 
-## 📌 About the Project
+Analyze retail transactions to identify product categories, sub-categories, and regions associated with stronger or weaker profitability. The analysis also explores how discount levels and delivery time relate to business performance.
 
-Retail companies often lose money on orders due to high discounts
-and poor product-region combinations. This project analyzes 9,000+
-Superstore retail transactions to identify what drives profit —
-and deploys a live prediction tool anyone can use.
+## Dataset
 
----
+- **Dataset:** Sample Superstore
+- **Records:** 9,994 transactions
+- **Columns:** 21 original fields
+- **Coverage:** Orders, customers, products, regions, sales, discounts, and profit
+- **Availability:** The CSV is not included in this repository. Place `Sample - Superstore.csv` in the project root before running the notebook.
 
-## 🔍 Key Business Insights Found
+## Tools used
 
-- High discounts (above 30%) strongly correlate with losses
-- **Tables** sub-category has an average margin of -8.5% — most loss-making product
-- **Furniture in the Central region** is consistently loss-making (-1.75% margin)
-- Revenue grows steadily but profit margins are volatile — driven by discounting strategy
+- Python
+- Pandas and NumPy
+- Matplotlib
+- Scikit-learn
+- Statsmodels (for the exploratory VIF check)
 
----
+## Analysis performed
 
-## 🛠 Tech Stack
+1. Loaded and inspected the dataset, including data types and missing values.
+2. Converted order and shipping dates and derived delivery duration.
+3. Compared sales and profit across categories, sub-categories, and regions.
+4. Examined discount and profit patterns for selected sub-categories.
+5. Analyzed monthly sales, profit, and profit-margin trends.
+6. Calculated category and regional profit margins.
+7. Explored a linear regression model as an additional learning exercise.
 
-| Layer | Technology |
-|---|---|
-| ML Model | Linear Regression (Scikit-learn) |
-| Data Processing | Pandas, NumPy |
-| API Backend | Flask |
-| Web Frontend | Streamlit |
-| Deployment | AWS EC2 t2.micro (Free Tier) |
-| Version Control | Git + GitHub |
+## Selected findings
 
----
+The figures below are calculated from the notebook's analysis:
 
-## 📁 Project Structure
-```
+| Analysis | Finding |
+|---|---:|
+| Total sales | $2.30 million |
+| Total profit | $286,397 |
+| Furniture profit margin | 2.49% |
+| Office Supplies profit margin | 17.04% |
+| Technology profit margin | 17.40% |
+| Tables profit | -$17,725 |
+| Tables profit margin | -8.56% |
+| Bookcases profit margin | -3.02% |
+| Central-region Furniture profit margin | -1.75% |
+| Discount-profit correlation | -0.219 |
+
+### Business observations
+
+- Furniture has a substantially lower overall profit margin than the other two categories.
+- Tables and Bookcases are loss-making sub-categories in the analyzed dataset.
+- Furniture in the Central region records a negative profit margin.
+- The discount-profit correlation is negative, indicating an association between higher discounts and lower profit. Correlation alone does not establish causation.
+- Monthly results show that sales growth does not necessarily translate into stable profit.
+
+## Regression experiment and limitations
+
+The notebook also includes an exploratory Linear Regression exercise. The initial model produced an R² of approximately **-0.645**. A second experiment, after filtering rows using the target variable's IQR, produced an R² of approximately **0.210** on the filtered data.
+
+These results should be treated as a learning experiment, **not as evidence of a validated prediction model**. The current notebook filters observations using the target variable before the train-test split, so the evaluation does not represent a clean, unbiased test on the original data distribution. The modelling section should be revisited before using or presenting the model as a reliable predictor.
+
+## Repository structure
+
+```text
 retail-profit-app/
-├── save_model.py        ← trains and saves model from raw CSV
-├── app.py               ← Flask REST API (port 5000)
-├── streamlit_app.py     ← Streamlit web UI (port 8501)
-├── requirements.txt     ← all dependencies
-├── retail_model.pkl     ← trained model
-├── feature_columns.pkl  ← column order for prediction alignment
-└── model_meta.pkl       ← dropdown options for the UI
+├── retail_profitability_analysis.ipynb  # Main analysis notebook
+├── README.md                            # Project documentation
+├── requirements.txt                     # Python dependencies
+├── save_model.py                        # Earlier model-training prototype
+├── app.py                               # Earlier Flask API prototype
+├── streamlit_app.py                     # Earlier Streamlit UI prototype
+├── retail_model.pkl                     # Saved prototype model
+├── feature_columns.pkl                  # Prototype feature-column metadata
+└── model_meta.pkl                       # Prototype dropdown metadata
 ```
 
----
+The Flask/Streamlit prediction files are retained as an earlier prototype. The project is presented primarily as a data analysis project; no live deployment is currently provided or claimed.
 
-## 🚀 Run Locally
-```bash
-# 1. Clone the repo
-git clone https://github.com/SabeerKhan03/retail-profit-app.git
-cd retail-profit-app
+## Run the analysis locally
 
-# 2. Install dependencies
-pip install -r requirements.txt
+1. Clone the repository:
 
-# 3. Place dataset in this folder
-#    File: "Sample - Superstore.csv"
+   ```bash
+   git clone https://github.com/SabeerKhan03/retail-profit-app.git
+   cd retail-profit-app
+   ```
 
-# 4. Train and save the model
-python save_model.py
+2. Create and activate a virtual environment (recommended).
 
-# 5. Terminal 1 — start Flask API
-python app.py
+3. Install the dependencies:
 
-# 6. Terminal 2 — start Streamlit UI
-python -m streamlit run streamlit_app.py
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-# Open browser at: http://localhost:8501
-```
+4. Place the dataset file named `Sample - Superstore.csv` in the repository root.
 
----
+5. Open `retail_profitability_analysis.ipynb` in Jupyter Notebook, JupyterLab, or VS Code and run the cells from top to bottom.
 
-## 👤 Author
+## Author
 
-**Sabeer Khan** — Final Year B.Tech (ECE), Gudlavalleru Engineering College  
-[GitHub](https://github.com/SabeerKhan03)
+**Sabeer Khan**  
+[GitHub Profile](https://github.com/SabeerKhan03)
